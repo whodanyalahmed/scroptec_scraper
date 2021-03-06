@@ -56,7 +56,7 @@ else:
         print ("info : File not exist... will create new file")
 products_links = []
 try:
-    for i in range(2):
+    for i in range(1):
         links = driver.find_elements_by_xpath("//div[@class='desc']/a")
         for d in links:
             href = d.get_attribute("href")
@@ -70,23 +70,42 @@ try:
 except Exception as e:
     print(e)
 # write to csv from website links
-# try:
-#     for link in products_links:
-#         row = []
-#         driver.get(link)
-#         name = driver.find_element_by_id("product_name").text
-#         row.append(name)
-#         desc = driver.find_element_by_css_selector("h2.h2desc").text
-#         row.append(desc)
-#         price = driver.find_element_by_id("price-price").text
-#         row.append(price)
-#         img = driver.find_element_by_id("large_image").get_attribute("src")
-#         row.append(img)
-#         with open('file.csv',"a+",newline='', encoding='utf-8') as f:
-#             writer = csv.writer(f, delimiter=',', quoting=csv.QUOTE_MINIMAL)
-#             writer.writerow(row)
-# except Exception as e:
-#     print(e)
+try:
+    for link in products_links:
+        row = []
+        driver.get(link)
+        try:
+            name = driver.find_element_by_id("product_name").text
+            row.append(name)
+        except Exception as e:
+            print(e)
+            row.append(None)
+        try:
+            desc = driver.find_element_by_css_selector("h2.h2desc").text
+            row.append(desc)
+        except Exception as e:
+            print(e)
+            row.append(None)
+        try:
+            price = driver.find_element_by_id("price-price").text
+            row.append(price)
+        except Exception as e:
+            print(e)
+            row.append(None)
+        try:
+            img = driver.find_element_by_id("large_image").get_attribute("src")
+            row.append(img)
+        except Exception as e:
+            print(e)
+            row.append(None)
+        try:
+            with open('file.csv',"a+",newline='', encoding='utf-8') as f:
+                writer = csv.writer(f, delimiter=',', quoting=csv.QUOTE_MINIMAL)
+                writer.writerow(row)
+        except Exception as e:
+            print(e)
+except Exception as e:
+    print(e)
 
     
 print("success : complete" )
