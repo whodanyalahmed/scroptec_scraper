@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
 from selenium.webdriver.common.keys import Keys  
-# from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options
 import time,sys,os,datetime,csv
 from sys import platform
 logFile = open("log.txt","a+")
@@ -20,9 +20,9 @@ if platform == "linux" or platform == "linux2":
     path = resource_path('I:\\clients\\chromedriver')
 else:
     path = resource_path('I:\\clients\\chromedriver.exe')
-# chrome_options = Options()
+chrome_options = Options()
 # chrome_options.add_argument("--disable-extensions")
-# chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")
 # chrome_options.add_argument("--disable-gpu")
 # chrome_options.add_argument("--window-size=1920,1080")
 # chrome_options.add_argument("--no-sandbox") # linux only
@@ -31,8 +31,8 @@ else:
     # Windows...
 print("\n\nProcessing.....")
 
-# driver =webdriver.Chrome(path,options=chrome_options)
-driver =webdriver.Chrome(path)
+driver =webdriver.Chrome(path,options=chrome_options)
+# driver =webdriver.Chrome(path,)
 
             
 driver.maximize_window()
@@ -49,14 +49,16 @@ except TimeoutException as e:
     print("info : website taking too long to load...stopped")
 if os.path.isfile('file.csv'):
     print ("info : File already exist")
+    logFile.write("info : File already exist")
 else:
     with open("file.csv","w+",newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(['Name',"Description","Price","Img_url"])
         print ("info : File not exist... will create new file")
+        logFile.write("info : File not exist... will create new file")
 products_links = []
 try:
-    for i in range(1):
+    for i in range(2):
         links = driver.find_elements_by_xpath("//div[@class='desc']/a")
         for d in links:
             href = d.get_attribute("href")
@@ -69,6 +71,7 @@ try:
     # print(products_links)
 except Exception as e:
     print(e)
+    logFile.write("\n" + str(e))
 # write to csv from website links
 try:
     for link in products_links:
@@ -104,8 +107,10 @@ try:
                 writer.writerow(row)
         except Exception as e:
             print(e)
+            logFile.write("\n" + str(e))
 except Exception as e:
     print(e)
-
+    logFile.write("\n" + str(e))
     
 print("success : complete" )
+logFile.write("success : complete" )

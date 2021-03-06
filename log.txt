@@ -21,3 +21,18 @@ Started at: 2021-03-06 13:58:16.603584
 success : Loaded...
 Started at: 2021-03-06 13:59:21.133747
 info : website taking too long to load...stopped
+Started at: 2021-03-06 14:05:08.484156
+success : Loaded...
+Started at: 2021-03-06 14:08:56.524324
+Started at: 2021-03-06 14:09:09.113370
+success : Loaded...
+Started at: 2021-03-06 14:15:51.569122
+success : Loaded...info : File already exist
+Message: timeout: Timed out receiving message from renderer: 28.846
+  (Session info: headless chrome=88.0.4324.190)
+success : complete
+Started at: 2021-03-06 14:18:31.615151
+success : Loaded...info : File already exist
+Message: timeout: Timed out receiving message from renderer: 28.475
+  (Session info: headless chrome=88.0.4324.190)
+success : complete
